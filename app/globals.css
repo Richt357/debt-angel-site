@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Brand colours, taken from the app's theme (src/theme/theme.ts). */
+@theme {
+  --color-brand-50: #eef0ff;
+  --color-brand-100: #e4e3fb;
+  --color-brand-300: #a9a4ff;
+  --color-brand-400: #8c93ff;
+  --color-brand-500: #6b63f0;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4038c9;
+  --color-brand-900: #262b5c;
+  --color-ink: #10142b;
+  --color-ink-muted: #555d78;
+  --color-night: #0c0e1f;
+  --color-night-card: #171a31;
+  --color-night-alt: #20244a;
+  --color-gold: #e8a800;
+  --color-gold-light: #ffc933;
+  --color-leaf: #0f7a3e;
+  --color-leaf-light: #4ade80;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --page: #f5f6fb;
+  --surface: #ffffff;
+  --surface-alt: #eef0fa;
+  --line: #dde1ee;
+  --fg: #10142b;
+  --fg-muted: #4a516b;
+  --accent: #4f46e5;
+  --accent-soft: #e4e3fb;
+  --avalanche: #4f46e5;
+  --snowball: #0b7a50;
+  --snowball-soft: #ddf3e6;
+  --avalanche-soft: #e4e3fb;
+}
+.dark {
+  color-scheme: dark;
+  --page: #0c0e1f;
+  --surface: #171a31;
+  --surface-alt: #20244a;
+  --line: #2b3056;
+  --fg: #f2f3fa;
+  --fg-muted: #b3bad2;
+  --accent: #8c93ff;
+  --accent-soft: #262b5c;
+  --avalanche: #8c93ff;
+  --snowball: #34d399;
+  --snowball-soft: #12301f;
+  --avalanche-soft: #262b5c;
+}
+
+/* The app's own palettes, used by the phone mockups (they can be pinned light/dark). */
+:root, .app-light {
+  --a-bg: #f5f6fb; --a-card: #ffffff; --a-alt: #eef0fa; --a-text: #10142b; --a-muted: #555d78;
+  --a-border: #dde1ee; --a-primary: #4f46e5; --a-on-primary: #ffffff; --a-soft: #e4e3fb;
+  --a-success: #0f7a3e; --a-success-soft: #ddf3e6; --a-warn: #9a5b00; --a-warn-soft: #fff0d3;
+  --a-track: #e1e4f0; --a-gold: #e8a800; --a-chart-a: #4f46e5; --a-chart-b: #0e9f6e; --a-chart-c: #9aa1b8;
+}
+.dark, .app-dark {
+  --a-bg: #0c0e1f; --a-card: #171a31; --a-alt: #20244a; --a-text: #f2f3fa; --a-muted: #a7aec6;
+  --a-border: #2b3056; --a-primary: #8c93ff; --a-on-primary: #0b0d1e; --a-soft: #262b5c;
+  --a-success: #4ade80; --a-success-soft: #12301f; --a-warn: #fbbf24; --a-warn-soft: #3a2b0b;
+  --a-track: #2a2f58; --a-gold: #ffc933; --a-chart-a: #8c93ff; --a-chart-b: #34d399; --a-chart-c: #7c84a6;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { background: var(--page); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--accent); color: #fff; padding: .75rem 1rem; border-radius: 0 0 .5rem 0; }
+.skip-link:focus { left: 0; }
+
+/* ---- Motion (only when the visitor hasn't asked for reduced motion) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal]:not([data-visible]) .grow-x { transform: scaleX(0); }
+  .js [data-reveal]:not([data-visible]) .draw { stroke-dashoffset: 1; }
+  .js [data-reveal]:not([data-visible]) .fade-in { opacity: 0; transform: translateY(8px); }
+  .grow-x { transform-origin: left center; transition: transform 1.3s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .draw { transition: stroke-dashoffset 1.8s ease-out; transition-delay: var(--d, 0s); }
+  .fade-in { transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0s); }
+  .float-slow { animation: float 7s ease-in-out infinite; }
+}
+.draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .chev { transform: rotate(180deg); }
